@@ -3,8 +3,14 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+require('dotenv').config();
+const request = require('request');
+const axios = require('axios');
+
+
 
 var indexRouter = require('./routes/index');
+var memesRouter = require('./routes/memes');
 // var highlightsRouter = require('./routes/highlights');
 
 var app = express();
@@ -21,6 +27,26 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));
 
 app.use('/', indexRouter);
+app.use('/memes', memesRouter);
+
+let memes;
+
+axios.get('https://api.imgflip.com/get_memes')
+    .then((response) => {
+        memes = response.data.data.memes;
+        
+        app.locals.memes = memes;
+    })
+    .catch((error) => {
+        console.error(error);
+    });
+
+app.locals.memes = memes;
+
+
+
+
+
 // app.use('/highlights', highlightsRouter);
 
 // catch 404 and forward to error handler

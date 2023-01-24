@@ -11,6 +11,7 @@ const axios = require('axios');
 
 var indexRouter = require('./routes/index');
 var memesRouter = require('./routes/memes');
+var memeDetRouter = require('./routes/meme')
 // var highlightsRouter = require('./routes/highlights');
 
 var app = express();
@@ -28,6 +29,7 @@ app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));
 
 app.use('/', indexRouter);
 app.use('/memes', memesRouter);
+app.use('/meme', memeDetRouter);
 
 let memes;
 

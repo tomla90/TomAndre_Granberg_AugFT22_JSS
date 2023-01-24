@@ -32,7 +32,7 @@
                   <td><%= meme.id %></td>
                   <td><%= meme.width +"x"+ meme.height %></td>
                   <td><img src="<%= meme.url %>" alt="<%= meme.name %>" width="20%"></td>
-                  <td><a href="/memes/<%= meme.id %>" class="btn btn-secondary">Details</a></td>
+                  <td><a href="/meme/<%= meme.id %>" class="btn btn-secondary">Details</a></td>
               </tr>
           <% }); %>
         </tbody>

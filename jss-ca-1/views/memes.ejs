@@ -35,6 +35,14 @@
                   <td><a href="/meme/<%= meme.id %>" class="btn btn-secondary">Details</a></td>
               </tr>
           <% }); %>
+
+          <form action="/memes/search" method="get">
+            <div class="form-group">
+                <label for="searchTerm">Search for a meme:</label>
+                <input type="text" class="form-control" id="searchTerm" name="searchTerm" placeholder="Enter meme name">
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
         </tbody>
       </table>
     </section>

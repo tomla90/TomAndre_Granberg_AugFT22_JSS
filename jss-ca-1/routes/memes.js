@@ -7,4 +7,24 @@ router.get('/', function (req, res, next) {
     res.render('memes', { data: routeMemes });
 });
 
+
+//Trying to imprement search function
+
+router.get('/search', (req, res, next) => {
+    let searchTerm = req.query.searchTerm;
+    try {
+        if (!req.app.locals.memes || !searchTerm || searchTerm.trim() === "") {
+            res.redirect('/memes');
+            return;
+        }
+        let filteredMemes = req.app.locals.memes.filter(meme => meme.name.toLowerCase().includes(searchTerm.toLowerCase()));
+        res.render('memes', { data: filteredMemes });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ error: error.message });
+    }
+});
+
+//----------------------------------------------------------------
+
 module.exports = router;

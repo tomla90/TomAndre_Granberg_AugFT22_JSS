@@ -43,7 +43,7 @@ axios.get('https://api.imgflip.com/get_memes')
         console.error(error);
     });
 
-app.locals.memes = memes;
+
 
 
 

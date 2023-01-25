@@ -19,7 +19,7 @@ passport.serializeUser(function(user, cb) {
 
 passport.use(new LocalStrategy(function verify(username, password, cb) {
     let usersArray = JSON.parse(fs.readFileSync(path.resolve(__dirname, "../data/users.json")));
-    let filteredArray = usersArray.filter(x => x.username = username);
+    let filteredArray = usersArray.filter(x => x.username === username);
     if (filteredArray.length > 0) {
       let usersData = filteredArray[0];
       if (usersData.password == password) {
@@ -47,11 +47,12 @@ router.post('/password', passport.authenticate('local', {
   });
 
 
+
   router.post('/logout', function(req, res, next) {
     req.logout(function(err) {
       if (err) { return next(err); }
-      res.redirect('/login');
-    });
+       res.redirect('/login');
+     });
   });
 
   

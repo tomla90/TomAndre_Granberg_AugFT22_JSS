@@ -2,8 +2,9 @@ var express = require('express');
 var router = express.Router();
 // const { resolve } = require('path');
 const axios = require('axios');
+var ensureLogIn = require('connect-ensure-login').ensureLoggedIn;
 
-router.get('/:id', (req, res, next) => {
+router.get('/:id', ensureLogIn({ redirectTo: '/login' }), (req, res, next) => {
    
     const memeId = req.params.id;
   
@@ -12,7 +13,7 @@ router.get('/:id', (req, res, next) => {
     const meme = data.find(meme => meme.id === memeId);
   
     
-    res.render('meme', { meme });
+    res.render('meme',  { meme, user: req.user });
   });
   
   module.exports = router;

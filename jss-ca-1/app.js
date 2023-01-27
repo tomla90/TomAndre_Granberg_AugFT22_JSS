@@ -3,14 +3,22 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-require('dotenv').config();
 const request = require('request');
 const axios = require('axios');
 var passport = require('passport')
 var session = require('express-session');
 var JsonStore = require('express-session-json')(session);
+var fs = require('fs');
 
+function attachUser(req, res, next) {
+  if(req.user) {
+      res.locals.user = req.user;
+  }
+  next();
+}
 
+var app = express();
+app.use(attachUser);
 
 var indexRouter = require('./routes/index');
 var memesRouter = require('./routes/memes');
@@ -18,7 +26,7 @@ var memeDetRouter = require('./routes/meme')
 var loginRouter = require('./routes/login');
 // var highlightsRouter = require('./routes/highlights');
 
-var app = express();
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -33,6 +41,7 @@ app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));
 app.use(express.static(__dirname + '/node_modules/bootstrap-icons'));
 app.use(express.static(__dirname + '/node_modules/jquery/dist/'));
 
+
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
@@ -46,12 +55,14 @@ app.use('/memes', memesRouter);
 app.use('/meme', memeDetRouter);
 app.use('/login', loginRouter);
 
+const api = JSON.parse(fs.readFileSync('./api.json'));
+
+
 let memes;
 
-axios.get('https://api.imgflip.com/get_memes')
+axios.get(api.memeAPI)
     .then((response) => {
         memes = response.data.data.memes;
-        
         app.locals.memes = memes;
     })
     .catch((error) => {

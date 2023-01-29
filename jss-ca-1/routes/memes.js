@@ -8,7 +8,7 @@ router.get('/', function (req, res, next) {
 });
 
 
-//Trying to implement search function
+
 
  router.get('/search', (req, res, next) => {
      let searchTerm = req.query.searchTerm;
@@ -27,6 +27,5 @@ router.get('/', function (req, res, next) {
 
 
 
-//----------------------------------------------------------------
 
 module.exports = router;

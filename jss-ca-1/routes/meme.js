@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 // const { resolve } = require('path');
-const axios = require('axios');
 var ensureLogIn = require('connect-ensure-login').ensureLoggedIn;
 
 router.get('/:id', ensureLogIn({ redirectTo: '/login' }), (req, res, next) => {

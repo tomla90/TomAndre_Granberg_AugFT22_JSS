@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 
+
 router.get('/', function (req, res, next) {
     let routeMemes = req.app.locals.memes;
     res.render('memes', { data: routeMemes, user: req.user });

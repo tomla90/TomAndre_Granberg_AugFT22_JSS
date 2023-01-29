@@ -10,6 +10,8 @@ var session = require('express-session');
 var JsonStore = require('express-session-json')(session);
 var fs = require('fs');
 
+
+
 function attachUser(req, res, next) {
   if(req.user) {
       res.locals.user = req.user;
@@ -18,13 +20,15 @@ function attachUser(req, res, next) {
 }
 
 var app = express();
+
+
 app.use(attachUser);
 
 var indexRouter = require('./routes/index');
 var memesRouter = require('./routes/memes');
 var memeDetRouter = require('./routes/meme')
 var loginRouter = require('./routes/login');
-// var highlightsRouter = require('./routes/highlights');
+
 
 
 
@@ -40,6 +44,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));
 app.use(express.static(__dirname + '/node_modules/bootstrap-icons'));
 app.use(express.static(__dirname + '/node_modules/jquery/dist/'));
+
 
 
 
@@ -72,11 +77,10 @@ axios.get(api.memeAPI)
 
 
 
+ 
+  
 
 
-
-
-// app.use('/highlights', highlightsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

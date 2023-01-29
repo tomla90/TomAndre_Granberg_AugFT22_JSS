@@ -33,7 +33,7 @@ passport.serializeUser(function(user, cb) {
 
 
 router.post('/password', passport.authenticate('local', {
-    successReturnToOrRedirect: '/',
+    successReturnToOrRedirect: '/memes',
     failureRedirect: '/login'
   }));
 

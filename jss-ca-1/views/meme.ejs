@@ -3,14 +3,13 @@
 
 <head>
   <title>Meme Info</title>
-  <link rel="stylesheet" href="../css/bootstrap.min.css" />
-  <link href="../stylesheets/navbar.css" rel="stylesheet">
-  <link rel="stylesheet" href="../stylesheets/meme.css">
+  <%- include('./partials/head.ejs') %>
 </head>
 
 <body class="position-relative" data-bs-spy="scroll">
   <%- include('./partials/navbar.ejs') %>
-<section class="container">
+<section class="container my-meme-section">
+
 
 <div>
   <h1><%= meme.name %></h1>

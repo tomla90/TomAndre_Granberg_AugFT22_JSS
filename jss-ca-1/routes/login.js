@@ -6,9 +6,9 @@ var passport = require('passport')
 var LocalStrategy = require('passport-local');
 
 passport.serializeUser(function(user, cb) {
-    process.nextTick(function() {
-      cb(null, { id: user.id, username: user.username });
-    });
+  process.nextTick(function() {
+  cb(null, { id: user.id, username: user.username.charAt(0).toUpperCase() + user.username.slice(1) });
+  });
   });
   
   passport.deserializeUser(function(user, cb) {
@@ -17,19 +17,19 @@ passport.serializeUser(function(user, cb) {
     });
   });
 
-passport.use(new LocalStrategy(function verify(username, password, cb) {
+  passport.use(new LocalStrategy(function verify(username, password, cb) {
     let usersArray = JSON.parse(fs.readFileSync(path.resolve(__dirname, "../data/users.json")));
-    let filteredArray = usersArray.filter(x => x.username === username);
+    let filteredArray = usersArray.filter(x => x.username.toLowerCase() === username.toLowerCase());
     if (filteredArray.length > 0) {
-      let usersData = filteredArray[0];
-      if (usersData.password == password) {
-        return cb(null, usersData);
-      }
+    let usersData = filteredArray[0];
+    if (usersData.password == password) {
+    return cb(null, usersData);
+    }
     }
     else {
-      return cb(null, false);
+    return cb(null, false);
     }
-  }));
+    }));
 
 
 router.post('/password', passport.authenticate('local', {

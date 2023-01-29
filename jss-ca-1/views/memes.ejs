@@ -20,12 +20,21 @@
         </thead>
         <tbody>
           <% data.forEach(function(meme, i) { %>
-              <tr <% if (meme.viewed) { %> class="viewed" <% } %>>
-                  <td><%= meme.id %></td>
-                  <td><%= meme.width +"x"+ meme.height %></td>
-                  <td><img src="<%= meme.url %>" alt="<%= meme.name %>" width="20%"></td>
-                  <td><a href="/meme/<%= meme.id %>" onclick="toggleViewed(event)" class="btn btn-secondary">Details</a></td>
-              </tr>
+
+            <tr <% if (meme.viewed) { %> class="viewed" <% } %>>
+              <td>
+                <%= meme.name %>
+                <br>
+                <%= meme.id %>
+              </td>
+              <td><%= meme.width +"x"+ meme.height %></td>
+              <td><img src="<%= meme.url %>" alt="<%= meme.name %>" width="20%"></td>
+              <% if (user) { %>
+                <td><a href="/meme/<%= meme.id %>" onclick="toggleViewed(event)" class="btn btn-secondary">Details</a></td>
+              <% } else { %>
+                <td>Sign in to view details page</td>
+              <% } %>
+            </tr>
           <% }); %>
 
           <form action="/memes/search" method="get">

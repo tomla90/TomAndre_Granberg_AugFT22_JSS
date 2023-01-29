@@ -21,8 +21,9 @@
         <tbody>
           <% data.forEach(function(meme, i) { %>
 
-            <tr <% if (meme.viewed) { %> class="viewed" <% } %>>
-              <td>
+            <% if (meme.viewed) { %> class="viewed" <% } %>
+            <tr>  
+            <td>
                 <%= meme.name %>
                 <br>
                 <%= meme.id %>
